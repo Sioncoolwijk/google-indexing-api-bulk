@@ -60,7 +60,6 @@ The script will read the urls.txt file and submit them to Google's Indexing API 
 **Note:** Google imposes the following quotas:
 - 100 URLs per request batch
 - 200 URLs per day (unless you have higher tier access)
-- Maximum of 500 URLs processed per run with this script
 
 ## Troubleshooting
 
