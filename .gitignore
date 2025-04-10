@@ -62,3 +62,7 @@ typings/
 
 # OS files
 .DS_Store
+
+service_account.json
+sitemap.xml
+urls.txt

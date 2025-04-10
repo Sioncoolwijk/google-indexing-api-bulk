@@ -1,42 +1,73 @@
-# google-indexing-api-bulk
+# Google Indexing API Bulk Tool
 
 Created by Steve at [Journey Further SEO](https://www.journeyfurther.com/)
 
-Requires node.js - https://nodejs.org/en/download/
+This script helps you index your website's pages in bulk using Google's Indexing API, without having to manually request each URL for submission in the Search Console interface.
 
-This script will help you index your website's pages in bulk, without having to manually request each URL for submission in the Search Console interface.
+## Prerequisites
 
-First off you will need to set up access to the Indexing API in Google Cloud Platform - follow the instructions below.
+- Node.js - [Download and install](https://nodejs.org/en/download/)
+- Google Search Console access for your website
+- Google Cloud Platform project with Indexing API enabled
 
-https://developers.google.com/search/apis/indexing-api/v3/prereqs
+## Setup
 
-Once you have access to Indexing API you'll be able to download a public/private key pair JSON file, this contains all of your credentials and should be saved as "service_account.json".
+1. Set up access to the Indexing API in Google Cloud Platform by following the instructions at:
+   https://developers.google.com/search/apis/indexing-api/v3/prereqs
 
-Add the URLs to the urls.txt file that you need to be crawled/indexed.
+2. Once you have access to Indexing API, download your service account JSON file containing your credentials and save it as `service_account.json` in the project root.
 
+## Verify Site Ownership
 
-## Verify site ownership in Search Console to submit URLs for indexing
 In this step, you'll verify that you have control over your web property.
 
-To verify ownership of your site you'll need to add your service account email address (see service_account.json - client_email) and add it as an owner ('delegated') of the web property in Search Console.
+1. Find your service account email address in:
+   - The `client_email` field in the JSON private key file
+   - The Service account ID column of the Service Accounts view in the Developer Console
+   - Format: `my-service-account@test-project-42.google.com.iam.gserviceaccount.com`
 
-You can find your service account email address in two places:
-- The client_email field in the JSON private key that you downloaded when you created your project.
-- The Service account ID column of the Service Accounts view in the Developer Console.
-- The email address has a format similar to the following:
+2. Go to [Google Webmaster Central](https://www.google.com/webmasters/verification/home)
+3. Click your verified property
+4. Scroll down and click 'Add an owner'
+5. Add your service account email address as an owner to the property
 
-For example, "my-service-account@test-project-42.google.com.iam.gserviceaccount.com".
+## Usage
 
-Then...
+### 1. Add your sitemap.xml file
 
-1. Go to [Google Webmaster Central](https://www.google.com/webmasters/verification/home)
-2. Click your verified property
-3. Scroll down and click 'Add an owner'.
-4. Add your service account email address as an owner to the property.
+Place your website's sitemap.xml file in the project root directory. This file contains all the URLs you want to index.
 
+### 2. Extract URLs from sitemap
 
-## Quotas
+Run the extract-sitemap script to pull all URLs from your sitemap into a urls.txt file:
 
-100 URLs per request batch
+```bash
+node extract-sitemap.js
+```
 
-200 URLs per day
+This will create or update the urls.txt file with all URLs from your sitemap.
+
+### 3. Submit URLs for indexing (500 URL limit)
+
+Run the main script to submit URLs for indexing:
+
+```bash
+node index.js
+```
+
+The script will read the urls.txt file and submit them to Google's Indexing API in batches.
+
+**Note:** Google imposes the following quotas:
+- 100 URLs per request batch
+- 200 URLs per day (unless you have higher tier access)
+- Maximum of 500 URLs processed per run with this script
+
+## Troubleshooting
+
+- Make sure your service_account.json file is correctly formatted and contains valid credentials
+- Verify that your service account has been added as an owner to your Search Console property
+- Check that your sitemap.xml is properly formatted and contains the URLs you want to index
+
+## License
+
+ISC
