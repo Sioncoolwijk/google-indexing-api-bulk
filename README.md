@@ -1,7 +1,5 @@
 # Google Indexing API Bulk Tool
 
-Created by Steve at [Journey Further SEO](https://www.journeyfurther.com/)
-
 This script helps you index your website's pages in bulk using Google's Indexing API, without having to manually request each URL for submission in the Search Console interface.
 
 ## Prerequisites
