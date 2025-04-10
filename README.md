@@ -47,7 +47,7 @@ node extract-sitemap.js
 
 This will create or update the urls.txt file with all URLs from your sitemap.
 
-### 3. Submit URLs for indexing (500 URL limit)
+### 3. Submit URLs for indexing
 
 Run the main script to submit URLs for indexing:
 
